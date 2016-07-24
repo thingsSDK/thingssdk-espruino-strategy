@@ -1,0 +1,23 @@
+{
+  "name": "thingssdk-espruino",
+  "version": "1.0.0",
+  "description": "Build and upload tools for ThingsSDK based projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/thingsSDK/thingssdk-espruino.git"
+  },
+  "keywords": [
+    "thingssdk",
+    "espruino"
+  ],
+  "author": "Andrew Chalkley <andrew@chalkley.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thingsSDK/thingssdk-espruino/issues"
+  },
+  "homepage": "https://github.com/thingsSDK/thingssdk-espruino#readme"
+}
