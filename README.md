@@ -1,4 +1,4 @@
-# thingssdk-espruino
+# thingssdk-espruino-strategy
 
 Build and upload tools for ThingsSDK based projects.
 
