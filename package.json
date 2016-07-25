@@ -1,5 +1,5 @@
 {
-  "name": "thingssdk-espruino",
+  "name": "thingssdk-espruino-strategy",
   "version": "1.0.0",
   "description": "Build and upload tools for ThingsSDK based projects",
   "main": "index.js",
