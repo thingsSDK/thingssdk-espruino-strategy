@@ -4,11 +4,11 @@
   "description": "Build and upload tools for ThingsSDK based projects",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/thingsSDK/thingssdk-espruino.git"
+    "url": "git+ssh://git@github.com/thingsSDK/thingssdk-espruino-strategy.git"
   },
   "keywords": [
     "thingssdk",
@@ -19,12 +19,15 @@
     "babel-preset-es2015-rollup": "^1.1.1",
     "rollup": "^0.34.1",
     "rollup-plugin-babel": "^2.6.1",
-    "espruino": "0.0.17"
+    "espruino": "0.0.18"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3"
   },
   "author": "Andrew Chalkley <andrew@chalkley.org>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thingsSDK/thingssdk-espruino/issues"
+    "url": "https://github.com/thingsSDK/thingssdk-espruino-strategy/issues"
   },
-  "homepage": "https://github.com/thingsSDK/thingssdk-espruino#readme"
+  "homepage": "https://github.com/thingsSDK/thingssdk-espruino-strategy#readme"
 }
