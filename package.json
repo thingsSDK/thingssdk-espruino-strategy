@@ -22,6 +22,7 @@
     "espruino": "0.0.18"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "mocha": "^2.5.3"
   },
   "author": "Andrew Chalkley <andrew@chalkley.org>",
