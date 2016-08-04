@@ -3,6 +3,7 @@
 
 const rollup = require('rollup').rollup;
 const babel = require('rollup-plugin-babel');
+const nodeResolve = require('rollup-plugin-node-resolve');
 
 module.exports = function build(entry) {
     return done => {
@@ -10,6 +11,9 @@ module.exports = function build(entry) {
         rollup({
             entry,
             plugins: [
+                nodeResolve({
+                    jsnext: true
+                }),
                 babel({
                     presets: ['es2015-rollup']
                 })
