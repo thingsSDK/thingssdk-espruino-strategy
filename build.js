@@ -12,7 +12,7 @@ module.exports = function build(entry) {
             entry,
             plugins: [
                 nodeResolve({
-                    jsnext: true
+                    main: true
                 }),
                 babel({
                     presets: ['es2015-rollup']
