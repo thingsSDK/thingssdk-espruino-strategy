@@ -28,7 +28,6 @@ module.exports = function build(entry) {
                     plugins: [
                         "external-helpers"
                     ]
-
                 })
             ]
         }).then(bundle => {
