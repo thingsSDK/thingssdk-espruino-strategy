@@ -17,7 +17,18 @@ module.exports = function build(entry) {
                     main: true
                 }),
                 babel({
-                    presets: ['es2015-rollup']
+                    presets: [
+                        [
+                            "es2015",
+                            {
+                                "modules": false
+                            }
+                        ]
+                    ],
+                    plugins: [
+                        "external-helpers"
+                    ]
+
                 })
             ]
         }).then(bundle => {
