@@ -19,10 +19,8 @@ function uploadToDevice(device, code) {
     });
 }
 
-module.exports = function upload(devices) {
+module.exports = function upload(devices, payload, next) {
     let espruinoDevices = utils.filterDevices(devices);
-
-    return (code) => {
-        espruinoDevices.forEach(device => uploadToDevice(device, code));
-    };
+    espruinoDevices.forEach(device => uploadToDevice(device, payload.code));
+    next();
 };
