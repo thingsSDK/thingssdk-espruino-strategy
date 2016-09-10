@@ -6,7 +6,7 @@ const babel = require('rollup-plugin-babel');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const json = require('rollup-plugin-json');
 
-module.exports = function build(devices, payload, done) {
+module.exports = function build(devices, payload, next) {
     console.log("Treeshaking code...");
     rollup({
         entry: payload.entry,
@@ -33,7 +33,7 @@ module.exports = function build(devices, payload, done) {
         let result = bundle.generate({
             format: 'cjs'
         });
-        payload.code = bundle.code;
-        done();
-    }).catch(done);
+        payload.code = result.code;
+        next();
+    }).catch(next);
 };
