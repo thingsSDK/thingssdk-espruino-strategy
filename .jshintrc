@@ -3,5 +3,6 @@
     "node": true,
     "strict": true,
     "browser": true,
+    "mocha": true,
     "predef": ["Espruino"]
 }
