@@ -1,31 +1,33 @@
 'use strict';
-const espruino = require('espruino');
-const utils = require('./utils');
+const spawn = require('child_process').spawn;
 
-// TODO: Use a logger and preface each line with the device prompt.
 module.exports = function repl(device) {
-    console.log("Connecting REPL...");
+    console.log('Connecting REPL...');
 
-    utils.mute((unmute) => {
-        espruino.init(() => {
-            unmute();
-            Espruino.Config.BAUD_RATE = device.baud_rate;
-            Espruino.Core.Serial.startListening((data) => {
-                process.stdout.write(String.fromCharCode.apply(null, new Uint8Array(data)));
-            });
-            Espruino.Core.Serial.open(device.port, () => {
-                process.stdin.on('readable', () => {
-                    let chunk = process.stdin.read();
-                    if (chunk !== null) {
-                        chunk = chunk.toString();
-                        Espruino.Core.Serial.write(chunk);
-                    }
-                });
+    let espruinoCmd = spawn('espruino', ['-b', device.baud_rate], {
+        // Because spawned processes don't support setRawMode we need to pass our stdin thru
+        stdio: ['inherit', 'pipe', 'pipe'],
+        detached: true
+    });
 
-            }, () => {
-                console.log("Disconnected.");
-            });
-        });
+    function output(msg) {
+        msg = "" + msg;
+        // Avoid cases where it is re-printing exactly what we are typing
+        if (msg.endsWith("\n")) {
+            msg = `${device.runtime}:  ${msg}`;
+        }
+        process.stdout.write(msg);
+    }
 
+    espruinoCmd.stdout.on('data', data => {
+         output(data.toString());
+    });
+
+    espruinoCmd.stderr.on('data', data => {
+         output(data.toString());
+    });
+
+    espruinoCmd.on('close', code => {
+        output('Exited with status ' + code);
     });
 };
