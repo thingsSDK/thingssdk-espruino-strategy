@@ -27,6 +27,6 @@ module.exports = function repl(device) {
     });
 
     espruinoCmd.on('error', err => {
-        output(`Error: ${err.message}`);
+        console.error(`Error: ${err.message}`);
     });
 };

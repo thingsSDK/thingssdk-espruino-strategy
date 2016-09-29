@@ -37,7 +37,7 @@ function uploadToDevice(device, filePath) {
     });
 
     espruinoCmd.on('error', err => {
-        output(`Error: ${err.message}`);
+        console.error(`Error: ${err.message}`);
     });
 }
 
