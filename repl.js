@@ -1,5 +1,6 @@
 'use strict';
 const spawn = require('child_process').spawn;
+const utils = require('./utils');
 
 module.exports = function repl(device) {
     console.log('Connecting REPL...');
@@ -10,14 +11,7 @@ module.exports = function repl(device) {
         detached: true
     });
 
-    function output(msg) {
-        msg = "" + msg;
-        // Avoid cases where it is re-printing exactly what we are typing
-        if (msg.endsWith("\n")) {
-            msg = `${device.runtime}:  ${msg}`;
-        }
-        process.stdout.write(msg);
-    }
+    let output = utils.outputForDevice(device);
 
     espruinoCmd.stdout.on('data', data => {
          output(data.toString());

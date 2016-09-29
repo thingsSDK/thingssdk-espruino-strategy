@@ -1,15 +1,5 @@
 'use strict';
 
-/**
- * Espruino libraries use console.log directly.  This silences code in `fn` until the `callback` is called.
- */
-function mute(fn) {
-    let oldLog = console.log;
-    console.log = Function.prototype;
-    fn.call(null, () => {
-        console.log = oldLog;
-    });
-}
 
 
 function filterDevices(devices) {
@@ -18,7 +8,19 @@ function filterDevices(devices) {
             .map(port => Object.assign({port}, devices[port]));
 }
 
+// This is a curried function (I think)
+function outputForDevice(device) {
+    return (msg) => {
+        msg = "" + msg;
+        // Avoid cases where it is re-printing exactly what we are typing
+        if (msg.endsWith("\n")) {
+            msg = `${device.runtime}:  ${msg}`;
+        }
+        process.stdout.write(msg);
+    };
+}
+
 module.exports = {
     filterDevices,
-    mute
+    outputForDevice
 };

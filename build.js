@@ -1,6 +1,7 @@
 /* Build file */
 'use strict';
 
+const path = require('path');
 const rollup = require('rollup').rollup;
 const babel = require('rollup-plugin-babel');
 const nodeResolve = require('rollup-plugin-node-resolve');
@@ -30,10 +31,10 @@ module.exports = function build(devices, payload, next) {
             })
         ]
     }).then(bundle => {
-        let result = bundle.generate({
-            format: 'cjs'
+        bundle.write({
+            format: 'cjs',
+            dest: path.join(payload.buildDir, 'espruino-generated.js')
         });
-        payload.code = result.code;
         next();
     }).catch(next);
 };
