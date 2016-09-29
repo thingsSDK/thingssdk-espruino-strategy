@@ -12,27 +12,32 @@ function uploadToDevice(device, filePath) {
 
     let output = utils.outputForDevice(device);
 
-    let espruinoCmd = spawn('espruino', [
+    let espruinoCmd = spawn('node', [
+        path.join('node_modules', 'espruino', 'bin', 'espruino-cli'), 
         '-b', device.baud_rate,
         '-p', device.port,
         '-c',
         filePath
-        ], {
+    ], {
             // Because spawned processes don't support setRawMode we need to pass our stdin thru
             stdio: ['inherit', 'pipe', 'pipe'],
             detached: true
         });
 
     espruinoCmd.stdout.on('data', data => {
-         output(data.toString());
+        output(data.toString());
     });
 
     espruinoCmd.stderr.on('data', data => {
-         output(data.toString());
+        output(data.toString());
     });
 
     espruinoCmd.on('close', code => {
-        output('Exited with status ' + code);
+        output(`Exited with status ${code}`);
+    });
+
+    espruinoCmd.on('error', err => {
+        output(`Error: ${err.message}`);
     });
 }
 
