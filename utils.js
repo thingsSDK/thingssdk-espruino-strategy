@@ -9,9 +9,8 @@ function filterDevices(devices) {
             .map(port => Object.assign({port}, devices[port]));
 }
 
-// This is a curried function (I think)
-function outputForDevice(device) {
-    return (msg) => {
+function runEspruino(device, ...cmdLineArgs) {
+    let output = function(msg) {
         msg = "" + msg;
         // Avoid cases where it is re-printing exactly what we are typing
         if (msg.endsWith("\n")) {
@@ -19,10 +18,6 @@ function outputForDevice(device) {
         }
         process.stdout.write(msg);
     };
-}
-
-function runEspruino(device, ...cmdLineArgs) {
-    let output = outputForDevice(device);
     let espruinoCmd = spawn('node', [
         path.join('node_modules', 'espruino', 'bin', 'espruino-cli'),
         '-b', device.baud_rate,
@@ -55,6 +50,5 @@ function runEspruino(device, ...cmdLineArgs) {
 
 module.exports = {
     filterDevices,
-    outputForDevice,
     runEspruino
 };
