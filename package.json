@@ -27,8 +27,9 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "esprima": "^3.0.0",
+    "istanbul": "^0.4.5",
     "mocha": "^2.5.3",
-    "istanbul": "^0.4.5"
+    "tmp": "0.0.29"
   },
   "author": "Andrew Chalkley <andrew@chalkley.org>",
   "license": "MIT",

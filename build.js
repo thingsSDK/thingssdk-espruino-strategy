@@ -34,7 +34,6 @@ module.exports = function build(devices, payload, next) {
         bundle.write({
             format: 'cjs',
             dest: path.join(payload.buildDir, 'espruino-generated.js')
-        });
-        next();
+        }).then(next);
     }).catch(next);
 };
