@@ -1,5 +1,6 @@
 'use strict';
-
+const path = require('path');
+const spawn = require('child_process').spawn;
 
 
 function filterDevices(devices) {
@@ -20,7 +21,40 @@ function outputForDevice(device) {
     };
 }
 
+function runEspruino(device, ...cmdLineArgs) {
+    let output = outputForDevice(device);
+    let espruinoCmd = spawn('node', [
+        path.join('node_modules', 'espruino', 'bin', 'espruino-cli'),
+        '-b', device.baud_rate,
+        '-p', device.port,
+        ...cmdLineArgs
+    ], {
+            // Because spawned processes don't support setRawMode we need to pass our stdin thru
+            stdio: ['inherit', 'pipe', 'pipe'],
+            detached: true
+        });
+
+    espruinoCmd.stdout.on('data', data => {
+        output(data.toString());
+    });
+
+    espruinoCmd.stderr.on('data', data => {
+        output(data.toString());
+    });
+
+    espruinoCmd.on('close', code => {
+        output(`Exited with status ${code}`);
+    });
+
+    espruinoCmd.on('error', err => {
+        console.error(`Error: ${err.message}`);
+    });
+    return espruinoCmd;
+
+}
+
 module.exports = {
     filterDevices,
-    outputForDevice
+    outputForDevice,
+    runEspruino
 };
