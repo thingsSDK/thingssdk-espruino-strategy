@@ -25,8 +25,7 @@ function runEspruino(device, ...cmdLineArgs) {
         ...cmdLineArgs
     ], {
             // Because spawned processes don't support setRawMode we need to pass our stdin thru
-            stdio: ['inherit', 'pipe', 'pipe'],
-            detached: true
+            stdio: ['inherit', 'pipe', 'pipe']
         });
 
     espruinoCmd.stdout.on('data', data => {
