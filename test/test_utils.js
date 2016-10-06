@@ -3,6 +3,7 @@
 const assert = require('chai').assert;
 const mockSpawn = require('mock-spawn');
 const proxyquire = require('proxyquire');
+const testConsole = require('test-console');
 const utils = require('../utils');
 describe('filterDevices(devices)', () => {
 
@@ -63,5 +64,31 @@ describe('runEspruino(device, ...cmdLineArgs)', () => {
         let args = mockedSpawn.calls[0].args;
         assert.include(args, 'p1');
         assert.include(args, 'p2');
+    });
+
+    it('prefixes stdout with the device runtime on lines with new lines', done => {
+        let inspect = testConsole.stdout.inspect();
+        mockedSpawn.sequence.add(function(cb) {
+            this.stdout.emit('data', "Hello world\n");
+            cb(0);
+            inspect.restore();
+            assert.isOk(inspect.output[0].startsWith('espruino:'));
+            done();
+        });
+
+        mockedUtils.runEspruino(device);
+    });
+
+    it('does not prefix when there is no newline', done => {
+        let inspect = testConsole.stdout.inspect();
+        mockedSpawn.sequence.add(function(cb) {
+            this.stdout.emit('data', "2 + 2");
+            cb(0);
+            inspect.restore();
+            assert.isOk(inspect.output[0].startsWith('2 + 2'));
+            done();
+        });
+
+        mockedUtils.runEspruino(device);
     });
 });

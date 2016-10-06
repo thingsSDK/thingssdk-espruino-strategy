@@ -6,7 +6,7 @@ const proxyquire = require('proxyquire');
 
 const device = {'port': 'port1', 'runtime': 'espruino'};
 
-describe("repl(device=)", () => {
+describe("repl(device)", () => {
     let repl;
     let utils;
     beforeEach(() => {
