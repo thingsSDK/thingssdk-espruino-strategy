@@ -93,4 +93,17 @@ describe('runEspruino(device, ...cmdLineArgs)', () => {
 
         mockedUtils.runEspruino(device);
     });
+
+    it('spits out errors on stderr', done => {
+        let inspect = testConsole.stderr.inspect();
+        mockedSpawn.sequence.add(function(cb) {
+            this.emit('error', {'message': 'canary'});
+            cb(1);
+            inspect.restore();
+            assert.equal(inspect.output[0], 'Error: canary\n');
+            done();
+        });
+
+        mockedUtils.runEspruino(device);
+    });
 });
