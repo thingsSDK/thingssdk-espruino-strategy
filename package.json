@@ -31,6 +31,7 @@
     "mocha": "^2.5.3",
     "mock-spawn": "^0.2.6",
     "proxyquire": "^1.7.10",
+    "sinon": "^1.17.6",
     "tmp": "0.0.29"
   },
   "author": "Andrew Chalkley <andrew@chalkley.org>",
