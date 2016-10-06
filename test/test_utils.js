@@ -66,13 +66,15 @@ describe('runEspruino(device, ...cmdLineArgs)', () => {
         assert.include(args, 'p2');
     });
 
-    it('prefixes stdout with the device runtime on lines with new lines', done => {
+    it('prefixes stdout and stderr with the device runtime on lines with new lines', done => {
         let inspect = testConsole.stdout.inspect();
         mockedSpawn.sequence.add(function(cb) {
             this.stdout.emit('data', "Hello world\n");
+            this.stderr.emit('data', "Ruh roh\n");
             cb(0);
             inspect.restore();
             assert.isOk(inspect.output[0].startsWith('espruino:'));
+            assert.isOk(inspect.output[1].startsWith('espruino:'));
             done();
         });
 
