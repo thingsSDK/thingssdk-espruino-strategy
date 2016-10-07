@@ -39,7 +39,7 @@ function assertBuildFails(pathToEntry, done) {
         assert.isNotNull(err);
         let fileCount = fs.readdirSync(buildDir).length;
         // No file created
-        assert.equal(0, fileCount);
+        assert.equal(fileCount, 0);
         done();
     });
 }
