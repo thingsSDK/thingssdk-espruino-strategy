@@ -22,6 +22,7 @@ function runEspruino(device, ...cmdLineArgs) {
         path.join('node_modules', 'espruino', 'bin', 'espruino-cli'),
         '-b', device.baud_rate,
         '-p', device.port,
+        '-no-ble',
         ...cmdLineArgs
     ], {
             // Because spawned processes don't support setRawMode we need to pass our stdin thru
