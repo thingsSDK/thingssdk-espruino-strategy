@@ -20,12 +20,12 @@ function transformForEnvironment(env, entry) {
                 return {
                     code,
                     map: { mappings: '' }
-                }
+                };
             } else {
                 return;
             }
         }
-    }
+    };
 }
 
 module.exports = function build(devices, payload, next) {
