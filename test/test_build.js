@@ -23,6 +23,7 @@ function assertBuildsSuccessfully(pathToEntry, expectedCode, env, done) {
     };
     build({}, payload, () => {
         let generated = fs.readFileSync(path.join(payload.buildDir, 'espruino-generated.js')).toString();
+        console.log(generated);
         const tokens = esprima.tokenize(generated);
         const expectedTokens = esprima.tokenize(expectedCode);
         assert.deepEqual(tokens, expectedTokens, 'Generated code matches tokens');
@@ -62,7 +63,7 @@ describe('build(devices, payload, next)', () => {
                     var a = square(10);
                     function main(){
                         console.log(a);
-                    };
+                    }
                     main();`;
                 assertBuildsSuccessfully(pathToEntry, expectedCode, "development", done);
             });
@@ -80,7 +81,7 @@ describe('build(devices, payload, next)', () => {
                     var a = divide(200, val);
                     function main() {
                         console.log(a);
-                    };
+                    }
                     main();`;
                 assertBuildsSuccessfully(pathToEntry, expectedCode, "development", done);
             });
@@ -102,7 +103,7 @@ describe('build(devices, payload, next)', () => {
                     var a = square(10);
                     function main(){
                         console.log(a);
-                    };
+                    }
                     E.on("init", main); save();`;
                 assertBuildsSuccessfully(pathToEntry, expectedCode, "production", done);
             });
@@ -120,7 +121,7 @@ describe('build(devices, payload, next)', () => {
                     var a = divide(200, val);
                     function main() {
                         console.log(a);
-                    };
+                    }
                     E.on("init", main); save();`;
                 assertBuildsSuccessfully(pathToEntry, expectedCode, "production", done);
             });
