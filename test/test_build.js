@@ -50,7 +50,7 @@ describe('build(devices, payload, next)', () => {
     describe("development mode", () => {
         describe('when entry is a valid source file', () => {
             it('should return valid ES5 code', done => {
-                const pathToEntry = path.join('test', 'examples', 'multi-level-include', 'index.js');
+                const pathToEntry = path.join(__dirname, 'examples', 'multi-level-include', 'index.js');
                 const expectedCode = `
                     'use strict';
                     function multiply(a, b) {
@@ -70,7 +70,7 @@ describe('build(devices, payload, next)', () => {
 
         describe('when entry is a valid source file with an imported json file', () => {
             it('should return valid ES5 code', done => {
-                const pathToEntry = path.join('test', 'examples', 'multi-level-include', 'json-include.js');
+                const pathToEntry = path.join(__dirname, 'examples', 'multi-level-include', 'json-include.js');
                 const expectedCode = `
                     'use strict';
                     function divide(a, b) {
@@ -90,7 +90,7 @@ describe('build(devices, payload, next)', () => {
     describe("production mode", () => {
         describe('when entry is a valid source file', () => {
             it('should return valid ES5 code', done => {
-                const pathToEntry = path.join('test', 'examples', 'multi-level-include', 'index.js');
+                const pathToEntry = path.join(__dirname, 'examples', 'multi-level-include', 'index.js');
                 const expectedCode = `
                     'use strict';
                     function multiply(a, b) {
@@ -110,7 +110,7 @@ describe('build(devices, payload, next)', () => {
 
         describe('when entry is a valid source file with an imported json file', () => {
             it('should return valid ES5 code', done => {
-                const pathToEntry = path.join('test', 'examples', 'multi-level-include', 'json-include.js');
+                const pathToEntry = path.join(__dirname, 'examples', 'multi-level-include', 'json-include.js');
                 const expectedCode = `
                     'use strict';
                     function divide(a, b) {
@@ -131,21 +131,21 @@ describe('build(devices, payload, next)', () => {
         let pathToEntry = path.join('test', 'examples', 'invalid-code', 'index.js');
 
         it('should error', (done) => {
-            let pathToEntry = path.join('test', 'examples', 'invalid-code', 'index.js');
+            let pathToEntry = path.join(__dirname, 'examples', 'invalid-code', 'index.js');
             assertBuildFails(pathToEntry, done);
         });
     });
 
     describe('when entry\'s import cannot be resolved', () => {
         it('should throw an error', (done) => {
-            let pathToEntry = path.join('test', 'examples', 'invalid-code', 'unresolved.js');
+            let pathToEntry = path.join(__dirname, 'examples', 'invalid-code', 'unresolved.js');
             assertBuildFails(pathToEntry, done);
         });
     });
 
     describe('when entry is an invalid path file', () => {
         it('should error', (done) => {
-            let pathToEntry = path.join('test', 'examples', 'invalid-code', 'doesnt-exist.js');
+            let pathToEntry = path.join(__dirname, 'examples', 'invalid-code', 'doesnt-exist.js');
             assertBuildFails(pathToEntry, done);
         });
     });

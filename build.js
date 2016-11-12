@@ -10,8 +10,7 @@ const json = require('rollup-plugin-json');
 function transformForEnvironment(env, entry) {
     return {
         transform(code, id) {
-            const entryFullPath = path.join(__dirname, entry);
-            if (entryFullPath === id) {
+            if (entry === id) {
                 if (env === "production") {
                     code = `${code};E.on("init", main);save();`;
                 } else {
@@ -53,7 +52,6 @@ module.exports = function build(devices, payload, next) {
             })
         ]
     }).then(bundle => {
-        console.log(bundle.code);
         return bundle.write({
             format: 'cjs',
             dest: path.join(payload.buildDir, 'espruino-generated.js')
