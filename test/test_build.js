@@ -23,9 +23,8 @@ function assertBuildsSuccessfully(pathToEntry, expectedCode, env, done) {
     };
     build({}, payload, () => {
         let generated = fs.readFileSync(path.join(payload.buildDir, 'espruino-generated.js')).toString();
-        console.log(generated);
-        const tokens = esprima.tokenize(generated);
-        const expectedTokens = esprima.tokenize(expectedCode);
+        const tokens = esprima.tokenize(generated, {comment: true});
+        const expectedTokens = esprima.tokenize(expectedCode, {comment: true});
         assert.deepEqual(tokens, expectedTokens, 'Generated code matches tokens');
         done();
     });
@@ -83,6 +82,22 @@ describe('build(devices, payload, next)', () => {
                         console.log(a);
                     }
                     main();`;
+                assertBuildsSuccessfully(pathToEntry, expectedCode, "development", done);
+            });
+        });
+
+        describe('when entry has comments in the JavaScript file', () => {
+            it('should remove comments from the ES5 code', done => {
+                const pathToEntry = path.join(__dirname, 'examples', 'code-with-comments', 'index.js');
+                const expectedCode = `
+                    'use strict';
+
+                    var pi = 3.14;
+                    function main() {
+                        console.log(pi);
+                    }
+                    main();
+                `;
                 assertBuildsSuccessfully(pathToEntry, expectedCode, "development", done);
             });
         });
