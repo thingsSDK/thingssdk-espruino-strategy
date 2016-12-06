@@ -21,6 +21,7 @@
     "espruino": "0.0.23",
     "rollup": "^0.36.3",
     "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-cleanup": "^0.1.4",
     "rollup-plugin-json": "^2.0.1",
     "rollup-plugin-node-resolve": "^2.0.0"
   },
