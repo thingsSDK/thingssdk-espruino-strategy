@@ -1,7 +1,7 @@
 {
   "name": "thingssdk-espruino-strategy",
-  "version": "1.0.0",
-  "description": "Build and upload tools for ThingsSDK based projects",
+  "version": "1.0.1",
+  "description": "Build and upload tools for thingsSDK based projects",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
