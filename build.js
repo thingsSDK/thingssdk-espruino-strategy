@@ -6,6 +6,7 @@ const rollup = require('rollup').rollup;
 const babel = require('rollup-plugin-babel');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const json = require('rollup-plugin-json');
+const cleanup = require('rollup-plugin-cleanup');
 
 function transformForEnvironment(env, entry) {
     return {
@@ -34,6 +35,7 @@ module.exports = function build(devices, payload, next) {
         plugins: [
             transformForEnvironment(payload.env, payload.entry),
             json(),
+            cleanup(),
             nodeResolve({
                 main: true
             }),
