@@ -31,7 +31,7 @@ function transformForEnvironment(env, entry) {
 module.exports = function build(devices, payload, next) {
     console.log("Treeshaking code...");
     rollup({
-        entry: payload.entry,
+        input: payload.entry,
         plugins: [
             transformForEnvironment(payload.env, payload.entry),
             json(),
@@ -56,7 +56,7 @@ module.exports = function build(devices, payload, next) {
     }).then(bundle => {
         return bundle.write({
             format: 'cjs',
-            dest: path.join(payload.buildDir, 'espruino-generated.js')
+            file: path.join(payload.buildDir, 'espruino-generated.js')
         });
     }).then(() => next())
         .catch(next);
